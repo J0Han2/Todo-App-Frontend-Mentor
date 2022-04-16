@@ -1,3 +1,5 @@
+import { useStoreDispatch } from '../../context/todosContext'
+import { ACTIONS } from '../../context/todosReducer'
 import { useSessionStorage } from '../../hooks/useSessionStorage'
 
 function FormTask() {
@@ -6,8 +8,13 @@ function FormTask() {
 		initialValue: '',
 	})
 
+	const dispatch = useStoreDispatch()
+
 	const handleSubmit = e => {
 		e.preventDefault()
+		if (text.trim() === '') return null
+		dispatch({ type: ACTIONS.ADD_TASK, payload: { text } })
+		setText('')
 	}
 
 	const handleField = e => setText(e.target.value)
