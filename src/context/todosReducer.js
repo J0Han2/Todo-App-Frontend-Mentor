@@ -29,6 +29,11 @@ export function todosReducer(state, { type, payload }) {
 			return state.map(task => (task.id === id ? { ...task, completed } : task))
 		}
 
+		case ACTIONS.COMPLETE_ALL: {
+			const completed = payload?.checked
+			return state.map(task => ({ ...task, completed }))
+		}
+
 		case ACTIONS.DEL_TASK: {
 			const { id } = payload
 			return state.filter(task => (task.id === id ? null : task))

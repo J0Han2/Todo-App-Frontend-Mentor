@@ -1,9 +1,9 @@
-import { useStoreDispatch } from '../../context/todosContext'
+import { useDispatch } from '../../context/todosContext'
 import { ACTIONS } from '../../context/todosReducer'
 
 function Task({ task }) {
 	const { completed, id, text } = task
-	const dispatch = useStoreDispatch()
+	const dispatch = useDispatch()
 
 	const handleCompleteTask = e => {
 		const { checked } = e.target
