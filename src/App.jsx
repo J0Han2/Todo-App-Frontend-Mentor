@@ -1,5 +1,4 @@
-import { FormTask, ListOfTasks } from './components'
-import FieldChecked from './components/FieldChecked'
+import { Form, ListOfTasks, Footer, FieldCompleteAll } from './components'
 import { TodosContextProvider } from './context/todosContext'
 
 function App() {
@@ -7,11 +6,11 @@ function App() {
 		<TodosContextProvider>
 			<header>
 				<h2>TODO</h2>
-				<FormTask FieldChecked={FieldChecked} />
+				<Form FieldChecked={FieldCompleteAll} />
 			</header>
 			<main>
 				<ListOfTasks />
-				{/* <p>Not task</p> */}
+				<Footer />
 			</main>
 		</TodosContextProvider>
 	)

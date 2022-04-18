@@ -1,12 +1,9 @@
+import { Task } from '..'
 import { useStoreTodos } from '../../context/todosContext'
-import Task from '../Task'
 
 const TodoList = () => {
 	const todos = useStoreTodos()
-
-	if (todos.length === 0) {
-		return <p>Not Pending Task</p>
-	}
+	if (todos.length === 0) return <p>Not Pending Task</p>
 
 	return (
 		<div>

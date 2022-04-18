@@ -1,9 +1,5 @@
 import { useEffect } from 'react'
-import {
-	useDispatch,
-	useStoreTodos,
-	useFilterCompleted,
-} from '../../context/todosContext'
+import { useDispatch, useStoreTodos, useFilterCompleted, } from '../../context/todosContext'
 import { ACTIONS } from '../../context/todosReducer'
 import { useSessionStorage } from '../../hooks/useSessionStorage'
 
@@ -12,7 +8,6 @@ function FormTask({ FieldChecked }) {
 		key: 'taskText',
 		initialValue: '',
 	})
-
 	const [completeAll, setCompleteAll] = useSessionStorage({
 		key: 'completeAll',
 		initialValue: false,
@@ -28,12 +23,10 @@ function FormTask({ FieldChecked }) {
 		dispatch({ type: ACTIONS.ADD_TASK, payload: { text } })
 		setText('')
 	}
-
 	const handleSubmit = e => {
 		e.preventDefault()
 		return isValid ? null : addNewTask()
 	}
-
 	const handleCompleteAll = e => {
 		if (isValid && todos.length === 0) return null
 		const checked = !isValid ? true : e.target.checked

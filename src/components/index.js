@@ -1,2 +1,6 @@
-export { default as FormTask } from './FormTodo'
+export { default as Form } from './FormTodo'
 export { default as ListOfTasks } from './TodoList'
+export { default as FieldCompleteAll } from './FieldChecked'
+export { default as Footer } from './Footer'
+export { default as Task } from './Task'
+export { default as TextField } from './FieldText'

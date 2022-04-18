@@ -8,6 +8,8 @@ export const ACTIONS = {
 	COMPLETE_ALL: 'complete all task',
 	CLEAR_ALL: 'clear all complete task',
 	DEL_TASK: 'delete task',
+	EDITING: 'edit a task',
+	OPEN_EDITOR: 'show input edit task',
 }
 
 export function todosReducer(state, { type, payload }) {
@@ -37,6 +39,20 @@ export function todosReducer(state, { type, payload }) {
 		case ACTIONS.DEL_TASK: {
 			const { id } = payload
 			return state.filter(task => (task.id === id ? null : task))
+		}
+
+		case ACTIONS.CLEAR_ALL: {
+			return state.filter(task => (task?.completed ? null : task))
+		}
+
+		case ACTIONS.OPEN_EDITOR: {
+			const { id, editing } = payload
+			return state.map(task => (task.id === id ? { ...task, editing } : task))
+		}
+
+		case ACTIONS.EDITING: {
+			const { prevTask } = payload
+			return state.map(task => (task.id === prevTask?.id ? prevTask : task))
 		}
 
 		default:
