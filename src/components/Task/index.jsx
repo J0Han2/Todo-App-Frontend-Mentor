@@ -1,6 +1,7 @@
-import { TextField } from '..'
-import { useDispatch } from '../../context/todosContext'
 import { ACTIONS } from '../../context/todosReducer'
+import { useDispatch } from '../../context/todosContext'
+import { ListItem, WrapperField, BtnCustom, BtnEdit } from './TaskStyles'
+import { TextField, FieldComplete } from '..'
 
 function Task({ task }) {
 	const { completed, id, text, editing } = task
@@ -10,29 +11,30 @@ function Task({ task }) {
 
 	const handleCompleteTask = e => {
 		const { checked } = e.target
-		dispatch({ type: ACTIONS.COMPLETE_TASK, payload: { checked, id } })
+		dispatch({ type: ACTIONS.TOGGLE_TASK, payload: { checked, id } })
 	}
 
 	const openFieldEdit = () => {
 		const editing = true
 		dispatch({ type: ACTIONS.OPEN_EDITOR, payload: { id, editing } })
 	}
-
 	return (
-		<li onDoubleClick={openFieldEdit}>
-			<div>
-				<input
-					name='completeTask'
-					onChange={handleCompleteTask}
-					type='checkbox'
-					checked={completed}
+		<ListItem>
+			<div className='container'>
+				<FieldComplete
+					checkedValue={completed}
+					handleOnChange={handleCompleteTask}
+					idValue={id}
+					nameValue='completeTask'
 				/>
-				<span>{text}</span>
-				<button onClick={deleteTask}>❌</button>
-				<button onClick={openFieldEdit}>🖊️</button>
-				<TextField editingTask={editing} task={task} />
+				<span onDoubleClick={openFieldEdit}>{text}</span>
 			</div>
-		</li>
+			<BtnCustom onClick={deleteTask} />
+			<BtnEdit onClick={openFieldEdit} />
+			<WrapperField isShow={editing}>
+				<TextField editingTask={editing} task={task} />
+			</WrapperField>
+		</ListItem>
 	)
 }
 

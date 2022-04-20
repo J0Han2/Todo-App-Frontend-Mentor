@@ -1,15 +1,17 @@
+import { Complete, LabelField, WrapperField } from './FieldStyles'
+
 function FieldChecked({ checkedValue, handleOnChange, idValue, nameValue }) {
 	return (
-		<div>
-			<input
+		<WrapperField>
+			<Complete
 				checked={checkedValue}
 				id={idValue}
 				name={nameValue}
 				onChange={handleOnChange}
 				type='checkbox'
 			/>
-			<label htmlFor={idValue}></label>
-		</div>
+			<LabelField htmlFor={idValue} />
+		</WrapperField>
 	)
 }
 

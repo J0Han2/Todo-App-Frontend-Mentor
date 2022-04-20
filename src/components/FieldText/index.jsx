@@ -15,8 +15,7 @@ function FieldText({ editingTask, task }) {
 	const handleCloseField = () => {
 		if (emptyTask) return removeEmptyTask()
 		const editing = false
-		dispatch({ type: ACTIONS.EDITING, payload: { id: task?.id, editing } })
-		setText('')
+		dispatch({ type: ACTIONS.OPEN_EDITOR, payload: { id: task?.id, editing } })
 	}
 
 	const handleKeyDown = e => {

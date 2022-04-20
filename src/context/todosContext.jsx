@@ -13,7 +13,7 @@ export function TodosContextProvider({ children }) {
 
 	useEffect(() => {
 		setStorageTodos(todos)
-	}, [todos])
+	}, [todos, setStorageTodos])
 
 	return (
 		<StoreTodos.Provider value={[todos, dispatch]}>
@@ -28,7 +28,7 @@ export const useStoreTodos = () => {
 }
 
 export const useDispatch = () => {
-	const [_, dispatch] = useContext(StoreTodos)
+	const dispatch = useContext(StoreTodos)[1]
 	return dispatch
 }
 

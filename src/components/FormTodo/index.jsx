@@ -1,9 +1,15 @@
-import { useEffect } from 'react'
-import { useDispatch, useStoreTodos, useFilterCompleted, } from '../../context/todosContext'
 import { ACTIONS } from '../../context/todosReducer'
+import { useEffect } from 'react'
+import { FieldComplete } from '..'
 import { useSessionStorage } from '../../hooks/useSessionStorage'
+import { Field, FormStyled } from './FormStyles'
+import {
+	useDispatch,
+	useStoreTodos,
+	useFilterCompleted,
+} from '../../context/todosContext'
 
-function FormTask({ FieldChecked }) {
+function FormTask() {
 	const [text, setText] = useSessionStorage({
 		key: 'taskText',
 		initialValue: '',
@@ -12,47 +18,51 @@ function FormTask({ FieldChecked }) {
 		key: 'completeAll',
 		initialValue: false,
 	})
-
 	const dispatch = useDispatch()
-	const todos = useStoreTodos()
-	const itemsLeft = useFilterCompleted(false).length
 	const isValid = text.trim() === ''
+	const isTodos = useStoreTodos().length === 0
+	const IsItemsLeft = useFilterCompleted(false).length > 0
 
 	const handleField = e => setText(e.target.value)
+
 	const addNewTask = () => {
 		dispatch({ type: ACTIONS.ADD_TASK, payload: { text } })
 		setText('')
 	}
+
 	const handleSubmit = e => {
 		e.preventDefault()
 		return isValid ? null : addNewTask()
 	}
+
 	const handleCompleteAll = e => {
-		if (isValid && todos.length === 0) return null
+		if (isValid && isTodos) return null
 		const checked = !isValid ? true : e.target.checked
-		const addTaskCompleted = !isValid ? addNewTask() : null
-		dispatch({ type: ACTIONS.COMPLETE_ALL, payload: { checked } })
+		if (!isValid) {
+			addNewTask()
+		}
+		dispatch({ type: ACTIONS.TOGGLE_ALL_TASK, payload: { checked } })
 		setCompleteAll(checked)
 	}
 
 	useEffect(() => {
-		if (todos.length === 0 || itemsLeft > 0) {
+		if (isTodos || IsItemsLeft) {
 			setCompleteAll(false)
 		}
-		if (todos.length !== 0 && itemsLeft < 1) {
+		if (!isTodos && !IsItemsLeft) {
 			setCompleteAll(true)
 		}
-	}, [todos])
+	}, [isTodos, IsItemsLeft, setCompleteAll])
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<FieldChecked
+		<FormStyled onSubmit={handleSubmit}>
+			<FieldComplete
 				checkedValue={completeAll}
 				handleOnChange={handleCompleteAll}
 				idValue='completeAll'
 				nameValue='completeAll'
 			/>
-			<input
+			<Field
 				autoComplete='off'
 				name='fieldTask'
 				onChange={handleField}
@@ -60,7 +70,7 @@ function FormTask({ FieldChecked }) {
 				value={text}
 				type='text'
 			/>
-		</form>
+		</FormStyled>
 	)
 }
 export default FormTask
