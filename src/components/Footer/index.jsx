@@ -1,10 +1,10 @@
-import { useDispatch, useFilterCompleted } from '../../context/todosContext'
+import { useDispatch, useFilterCt } from '../../context/todosContext'
 import { FooterStyles, ListLinks } from './FooterStyles'
-import { ACTIONS } from '../../context/todosReducer'
+import { ACTIONS } from '../../hooks/useStorageTodos'
 import ActiveLink from '../ActiveLink'
 
 function Footer() {
-	const itemsLeft = useFilterCompleted(false).length
+	const itemsLeft = useFilterCt(false).length
 	const dispatch = useDispatch()
 
 	const handleDeleteAll = () => dispatch({ type: ACTIONS.CLEAR_ALL })

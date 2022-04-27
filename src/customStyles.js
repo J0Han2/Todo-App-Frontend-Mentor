@@ -1,8 +1,10 @@
 import { css } from 'styled-components'
 
 export const Media = {
-	desktop: `@media screen and (min-width: 768px)`,
+	table: `@media screen and (min-width: 768px)`,
+	desktop: `@media screen and (min-width: 1024px)`,
 	hover: `@media (hover: hover)`,
+	orientation: 'screen and (orientation: landscape)',
 }
 
 export const Icons = {
@@ -14,12 +16,20 @@ export const Icons = {
 export const size = {
 	high: {
 		smallIcon: '1.63rem',
+		minContainer: '4rem',
 	},
 	width: {
 		smallIcon: '1.63rem',
+		minResponsive: '34rem, 100%',
 	},
 	borderRadius: {
 		itemSmall: '.3rem',
+	},
+	font: {
+		minSmallText: '.9rem',
+	},
+	lateralSpacing: {
+		spacingBody: '4.5vw',
 	},
 }
 
@@ -73,9 +83,12 @@ export const Colors = {
 export const Themes = {
 	default: {
 		colors: {
-			bgColor: 'hsl(0, 0%, 98%)',
-			bgColor2: 'hsl(236, 33%, 92%)',
-			textColor: 'hsl(235, 19%, 35%)',
+			bgColor: 'hsl(236, 33%, 92%)', // global -> body or main
+			bgColor2: 'hsl(0, 0%, 98%)', // general -> div, form section
+			bgColor3: 'hsl(236, 33%, 92%)', // border or outline
+			textColor: 'hsl(235, 19%, 35%)', // global -> body or main
+			textColor2: 'hsl(236, 9%, 61%)', // general -> textTask or hover
+			textColor3: 'hsl(233, 11%, 84%)', // footer -> text
 		},
 		icons: {
 			btnTheme: '/assets/icons/moon.svg',
@@ -87,9 +100,12 @@ export const Themes = {
 	},
 	dark: {
 		colors: {
-			bgColor: 'hsl(235, 21%, 11%)',
-			bgColor2: 'hsl(235, 24%, 19%)',
-			textColor: 'hsl(234, 39%, 85%)',
+			bgColor: 'hsl(235, 21%, 11%)', // global -> body or main
+			bgColor2: 'hsl(235, 24%, 19%)', // general -> div, form section
+			bgColor3: 'hsl(237, 14%, 26%)', // border or outline
+			textColor: 'hsl(234, 39%, 85%)', // global -> body or main
+			textColor2: 'hsl(234, 11%, 52%)', // general -> textTask or hover
+			textColor3: 'hsl(233, 14%, 35%)', // footer -> text
 		},
 		icons: {
 			btnTheme: '/assets/icons/sun.svg',
@@ -100,35 +116,3 @@ export const Themes = {
 		},
 	},
 }
-
-/* 
-## Colors
-### Primary
-- Bright Blue: hsl(220, 98%, 61%)
-- Check Background: linear-gradient hsl(192, 100%, 67%) to hsl(280, 87%, 65%)
-cyanLinearGra purpleLinearGra
-### Neutral
-### Light Theme
-- Very Light Gray: hsl(0, 0%, 98%)
-- Very Light Grayish Blue: hsl(236, 33%, 92%)
-- Light Grayish Blue: hsl(233, 11%, 84%)
-- Dark Grayish Blue: hsl(236, 9%, 61%)
-- Very Dark Grayish Blue: hsl(235, 19%, 35%)
-
-### Dark Theme
-- Very Dark Blue: hsl(235, 21%, 11%)
-- Very Dark Desaturated Blue: hsl(235, 24%, 19%)
-- Light Grayish Blue: hsl(234, 39%, 85%)
-- Light Grayish Blue (hover): hsl(236, 33%, 92%)
-- Dark Grayish Blue: hsl(234, 11%, 52%)
-- Very Dark Grayish Blue: hsl(233, 14%, 35%)
-- Very Dark Grayish Blue: hsl(237, 14%, 26%)
-
-- Text1: hsl(233, 14%, 35%)
-
-
-- backgroundBody: hsl(235, 21%, 11%)
-- background1: hsl(235, 24%, 19%) -> form or input ->listOfTask or Task -> Links
-test -> border: hsl(237, 14%, 26%)
-
- */

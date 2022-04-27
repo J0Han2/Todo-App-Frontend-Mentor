@@ -7,5 +7,6 @@ export const List = styled.ul`
 	background-color: ${({ theme }) => theme.colors.bgColor2};
 	border-radius: var(--radiusSize) var(--radiusSize) 0 0;
 	list-style: none;
+	margin-bottom: 0;
 	padding: 0;
 `

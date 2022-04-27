@@ -1,12 +1,13 @@
-import { useEffect, useRef, useState } from 'react'
+import { ACTIONS } from '../../hooks/useStorageTodos'
 import { useDispatch } from '../../context/todosContext'
-import { ACTIONS } from '../../context/todosReducer'
+import { useEffect, useRef, useState } from 'react'
+import { FieldEditText,WrapperField } from './FieldTextStyles'
 
 function FieldText({ editingTask, task }) {
 	const [text, setText] = useState(task?.text)
-	const emptyTask = text.trim() === ''
 	const fieldRef = useRef(null)
 	const dispatch = useDispatch()
+	const emptyTask = text.trim() === ''
 	const handleFieldText = e => setText(e.target.value)
 
 	const removeEmptyTask = () =>
@@ -14,8 +15,11 @@ function FieldText({ editingTask, task }) {
 
 	const handleCloseField = () => {
 		if (emptyTask) return removeEmptyTask()
-		const editing = false
-		dispatch({ type: ACTIONS.OPEN_EDITOR, payload: { id: task?.id, editing } })
+		dispatch({
+			type: ACTIONS.OPEN_EDITOR,
+			payload: { id: task?.id, editing: false },
+		})
+		setText(task.text)
 	}
 
 	const handleKeyDown = e => {
@@ -34,16 +38,18 @@ function FieldText({ editingTask, task }) {
 	}, [editingTask])
 
 	return (
-		<input
-			autoComplete='off'
-			name='fieldEditing'
-			onBlur={handleCloseField}
-			onChange={handleFieldText}
-			onKeyDown={handleKeyDown}
-			ref={fieldRef}
-			value={text}
-			type='text'
-		/>
+		<WrapperField isShow={editingTask}>
+			<FieldEditText
+				autoComplete='off'
+				name='fieldEditing'
+				onBlur={handleCloseField}
+				onChange={handleFieldText}
+				onKeyDown={handleKeyDown}
+				ref={fieldRef}
+				value={text}
+				type='text'
+			/>
+		</WrapperField>
 	)
 }
 

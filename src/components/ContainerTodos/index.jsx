@@ -1,9 +1,9 @@
 import { Route, Switch } from 'wouter'
-import { useFilterCompleted, useStoreTodos } from '../../context/todosContext'
+import { useFilterCt, useTodos } from '../../context/todosContext'
 import { ListOfTasks } from '..'
 
 function ContainerTodos() {
-	const todos = useStoreTodos()
+	const todos = useTodos()
 
 	return (
 		<section>
@@ -12,10 +12,10 @@ function ContainerTodos() {
 					<ListOfTasks todos={todos} />
 				</Route>
 				<Route path='/active'>
-					<ListOfTasks todos={useFilterCompleted(false)} />
+					<ListOfTasks todos={useFilterCt(false)} />
 				</Route>
 				<Route path='/completed'>
-					<ListOfTasks todos={useFilterCompleted(true)} />
+					<ListOfTasks todos={useFilterCt(true)} />
 				</Route>
 			</Switch>
 		</section>

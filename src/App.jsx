@@ -1,31 +1,31 @@
+import { Themes } from './customStyles'
+import { useTheme } from './hooks'
 import { ThemeProvider } from 'styled-components'
+import { TodosContextProvider } from './context/todosContext'
 import { BtnTheme, Header, Main } from './AppStyles'
 import { Form, Todos, Footer, StylesG } from './components'
-import { TodosContextProvider } from './context/todosContext'
-import { Themes } from './customStyles'
-import { useSessionStorage } from './hooks/useSessionStorage'
 
 function App() {
-	const [theme, setTheme] = useSessionStorage({
-		key: 'theme',
-		initialValue: 'default',
-	})
-
-	const changeTheme = () =>
-		theme === 'default' ? setTheme('dark') : setTheme('default')
+	const [theme, toggleTheme] = useTheme()
 
 	return (
 		<TodosContextProvider>
 			<ThemeProvider theme={Themes[theme]}>
 				<StylesG />
 				<Header>
-					<BtnTheme onClick={changeTheme} />
-					<h1>TODO</h1>
-					<Form />
+					<div className='wrapper'>
+						<div className='container'>
+							<h1>TODO</h1>
+							<BtnTheme onClick={() => toggleTheme()} />
+						</div>
+						<Form />
+					</div>
 				</Header>
 				<Main>
-					<Todos />
-					<Footer />
+					<div className='wrapper'>
+						<Todos />
+						<Footer />
+					</div>
 				</Main>
 			</ThemeProvider>
 		</TodosContextProvider>

@@ -1,27 +1,33 @@
 import styled from 'styled-components'
-import { customCss, size } from '../../customStyles'
+import { customCss, size, Colors, Media } from '../../customStyles'
 
 export const FormStyled = styled.form`
 	--radiusSize: ${size?.borderRadius?.itemSmall};
-	${customCss.flexBox}
+	--minContainer: ${size?.high?.minContainer};
+	${customCss.flexBox};
 
 	background-color: ${({ theme }) => theme.colors.bgColor2};
 	border-radius: var(--radiusSize);
-	min-height: 8vh;
+	min-height: var(--minContainer);
 	min-width: 100%;
 	padding-left: 1.2rem;
 	position: relative;
 `
 
 export const Field = styled.input`
+	--smallFz: ${size?.font?.minSmallText};
+
 	background-color: inherit;
 	border: none;
-	color: hsl(0, 0%, 100%);
-	line-height: 0;
+	color: inherit;
+	caret-color: ${Colors?.primary?.brightBlue};
 	outline: none;
-	padding-bottom: 0;
-	/* padding-left: 3.55rem; */
-	padding-left: 1.55rem;
+	font-size: var(--smallFz);
+	min-height: inherit;
+	padding-left: 0.8rem;
 	padding-right: 1.2rem;
 	width: 100%;
+	${Media.desktop} {
+		padding-left: 1rem;
+	}
 `

@@ -1,28 +1,19 @@
-import { createContext, useContext, useEffect, useReducer } from 'react'
-import { useLocalStorage } from '../hooks/useLocalStorage'
-import { initialTodos, todosReducer } from './todosReducer'
+import { createContext, useContext } from 'react'
+import { useStorageTodos } from '../hooks'
 
 const StoreTodos = createContext()
 
 export function TodosContextProvider({ children }) {
-	const [storageTodos, setStorageTodos] = useLocalStorage({
-		key: 'todos',
-		initialValue: initialTodos,
-	})
-	const [todos, dispatch] = useReducer(todosReducer, storageTodos)
-
-	useEffect(() => {
-		setStorageTodos(todos)
-	}, [todos, setStorageTodos])
+	const [storageTodos, dispatch] = useStorageTodos({ initialTodos: [] })
 
 	return (
-		<StoreTodos.Provider value={[todos, dispatch]}>
+		<StoreTodos.Provider value={[storageTodos, dispatch]}>
 			{children}
 		</StoreTodos.Provider>
 	)
 }
 
-export const useStoreTodos = () => {
+export const useTodos = () => {
 	const [todos] = useContext(StoreTodos)
 	return todos
 }
@@ -32,8 +23,9 @@ export const useDispatch = () => {
 	return dispatch
 }
 
-export const useFilterCompleted = boolean => {
-	const todos = useStoreTodos()
+// useFilterCompletedTodos
+export const useFilterCt = boolean => {
+	const todos = useTodos()
 	return todos.filter(task => (task.completed === boolean ? task : null))
 }
 
